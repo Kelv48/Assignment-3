@@ -1,16 +1,16 @@
 package assign3.java;
 
-public class ColorPallete {
+public class ColorPallet {
 
-    private int[] colorPalette;
+    private int[] colorPallet;
 
-    public ColorPallete(int size) {
+    public ColorPallet(int size) {
         if (size<=1) {
             throw new IllegalArgumentException("Size must be greater than 1");
         }
         if ((size&(size-1))!=0) {
             throw new IllegalArgumentException("Size must be power of 2");
         }
-        colorPalette = new int[size];
+        colorPallet = new int[size];
     }
 }
