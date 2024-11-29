@@ -3,6 +3,7 @@ package assign3.java;
 public class ColorPallet {
 
     private int[] colorPallet;
+    private int currentIndex = 0;
 
     public ColorPallet(int size) {
         if (size<=1) {
@@ -12,5 +13,13 @@ public class ColorPallet {
             throw new IllegalArgumentException("Size must be power of 2");
         }
         colorPallet = new int[size];
+    }
+
+    public int getSize() {
+        return colorPallet.length;
+    }
+
+    public int[] getColors() {
+        return java.util.Arrays.copyOf(colorPallet, currentIndex);
     }
 }
