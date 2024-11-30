@@ -43,4 +43,11 @@ public class ColorPalletTest {
             pallet.addColour(0x0000FF);
         });
     }
+
+    @Test
+    void testAddInvalidColour() {
+        ColorPallet pallet = new ColorPallet(4);
+        assertThrows(IllegalArgumentException.class, () -> pallet.addColour(0x1000000));
+        assertThrows(IllegalArgumentException.class, () -> pallet.addColour(-1));
+    }
 }
