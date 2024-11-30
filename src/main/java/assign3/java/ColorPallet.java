@@ -1,5 +1,7 @@
 package assign3.java;
 
+import java.util.Arrays;
+
 public class ColorPallet {
 
     private int[] colorPallet;
@@ -13,6 +15,18 @@ public class ColorPallet {
             throw new IllegalArgumentException("Size must be power of 2");
         }
         colorPallet = new int[size];
+        Arrays.fill(colorPallet, -1);
+    }
+
+    public void addColour(int rgbColour) {
+        if ((rgbColour & 0xFFFFFF) != rgbColour) {
+            throw new IllegalArgumentException("Invalid RGB colour: must be a 24-bit value.");
+        }
+        if (currentIndex >= colorPallet.length) {
+            throw new IllegalArgumentException("Color array is full");
+        }
+        colorPallet[currentIndex] = rgbColour;
+        currentIndex++;
     }
 
     public int getSize() {
