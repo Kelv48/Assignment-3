@@ -32,4 +32,15 @@ public class ColorPalletTest {
         assertEquals(0x123456, colours[0]);
         assertEquals(0xFFFFFF, colours[1]);
     }
+
+    @Test
+     void testAddTooManyColours() {
+        ColorPallet pallet = new ColorPallet(2);
+        pallet.addColour(0xFF0000);
+        pallet.addColour(0x00FF00);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            pallet.addColour(0x0000FF);
+        });
+    }
 }
