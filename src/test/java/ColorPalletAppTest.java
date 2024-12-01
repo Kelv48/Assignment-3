@@ -43,4 +43,13 @@ public class ColorPalletAppTest {
 
         assertEquals("#FF00FF", hexOutput);
     }
+
+    @Test
+    public void testUserInputForBinary() {
+        String simulatedInput = "111111110000000011111111\n";
+        System.setIn(new java.io.ByteArrayInputStream(simulatedInput.getBytes()));
+
+        String userInput = ColorPalletApp.getUserInput();
+        assertEquals("#FF00FF", userInput);
+    }
 }
