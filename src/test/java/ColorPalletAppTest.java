@@ -26,6 +26,15 @@ public class ColorPalletAppTest {
     }
 
     @Test
+    public void testInvalidBinaryInput() {
+        String simulatedInput = "1111111100000000111111111\n";
+        System.setIn(new java.io.ByteArrayInputStream(simulatedInput.getBytes()));
+
+
+        assertThrows(IllegalArgumentException.class, ColorPalletApp::getUserInput);
+    }
+
+    @Test
      void testUserInputForBinary() {
         String simulatedInput = "111111110000000011111111\n";
         System.setIn(new java.io.ByteArrayInputStream(simulatedInput.getBytes()));
