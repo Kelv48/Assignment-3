@@ -26,4 +26,13 @@ public class ColorPalletAppTest {
         // Check if the color has been added to the palette
         assertArrayEquals(new int[] {0xFF5733, -1, -1, -1}, palette.getArray());
     }
+
+    @Test
+    public void testWhitespaceUserInput() {
+        // Simulate whitespace-only user input
+        String simulatedInput = "   \n";
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+        assertThrows(IllegalArgumentException.class, ColorPalletApp::getUserInput);
+    }
 }
