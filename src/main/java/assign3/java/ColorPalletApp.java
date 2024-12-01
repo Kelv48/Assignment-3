@@ -2,6 +2,7 @@ package assign3.java;
 import java.util.Scanner;
 
 public class ColorPalletApp {
+
     public static String getUserInput() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a color (in binary or hex, e.g., #FF5733 (6-digits) or 101011110010 (24-bits) ): ");
@@ -24,5 +25,15 @@ public class ColorPalletApp {
         }
         int decimal = Integer.parseInt(binary, 2);
         return String.format("#%06X", decimal);
+    }
+
+    public static void printColorPallet(ColorPallet colorPallet) {
+        int[] colors = colorPallet.getArray();
+        System.out.println("Your Color Pallet:");
+        for (int color : colors) {
+            if (color != -1) {
+                System.out.printf("#%06X%n", color);
+            }
+        }
     }
 }

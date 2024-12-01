@@ -1,7 +1,10 @@
+import assign3.java.ColorPallet;
 import assign3.java.ColorPalletApp;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -61,4 +64,32 @@ public class ColorPalletAppTest {
         String userInput = ColorPalletApp.getUserInput();
         assertEquals("#FF5733", userInput);
     }
+
+    @Test
+    public void testPrintColorPallet() {
+        ColorPallet colorPallet = new ColorPallet(4);
+        colorPallet.addColour(0xFF00FF);
+        colorPallet.addColour(0x00FF00);
+        colorPallet.addColour(0x123ABC);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        ColorPalletApp.printColorPallet(colorPallet);
+
+        System.setOut(System.out);
+
+        String expectedOutput = """
+                Your Color Pallet:
+                #FF00FF
+                #00FF00
+                #123ABC
+                """;
+
+        String actualOutput = outputStream.toString().trim().replace("\r\n", "\n").strip();
+        String expectedNormalized = expectedOutput.trim().replace("\r\n", "\n").strip();
+
+        assertEquals(expectedNormalized, actualOutput);
+    }
+
 }
