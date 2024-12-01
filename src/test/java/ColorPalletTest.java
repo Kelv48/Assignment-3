@@ -1,8 +1,5 @@
 import assign3.java.ColorPallet;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ColorPalletTest {
@@ -24,12 +21,8 @@ public class ColorPalletTest {
     @Test
      void testAddValidColor() {
         ColorPallet palette = new ColorPallet(4);
-
-        // Add valid colors
         palette.addColour(0xFF5733);
         palette.addColour(0x000000);
-
-        // Validate the palette contents
         assertArrayEquals(new int[] {0xFF5733, 0x000000, -1, -1}, palette.getArray());
     }
 
@@ -38,7 +31,6 @@ public class ColorPalletTest {
         ColorPallet pallet = new ColorPallet(2);
         pallet.addColour(0xFF0000);
         pallet.addColour(0x00FF00);
-
         assertThrows(IllegalArgumentException.class, () -> {
             pallet.addColour(0x0000FF);
         });
@@ -60,8 +52,6 @@ public class ColorPalletTest {
     @Test
      void testRejectDuplicateColor() {
         ColorPallet palette = new ColorPallet(4);
-
-
         palette.addColour(0xFF5733);
         assertThrows(IllegalArgumentException.class, () -> palette.addColour(0xFF5733));
         assertArrayEquals(new int[] {0xFF5733, -1, -1, -1}, palette.getArray());
