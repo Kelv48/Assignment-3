@@ -43,8 +43,12 @@ public class ColorPalletTest {
             pallet.addColour(0x0000FF);
         });
     }
-    // Valid hex / invalid hex
 
+    @Test
+    public void testEmptyPalette() {
+        ColorPallet palette = new ColorPallet(4);
+        assertArrayEquals(new int[] {-1, -1, -1, -1}, palette.getArray()); // Ensure it's empty
+    }
 
     @Test
     void testAddInvalidColour() {
