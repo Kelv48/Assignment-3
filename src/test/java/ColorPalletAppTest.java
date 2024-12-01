@@ -11,13 +11,23 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ColorPalletAppTest {
 
 
+    //Broken into two tests
     @Test
-     void testWhitespaceUserInput() {
-        // Simulate whitespace-only user input
+    void testWhitespaceUserInputForColor() {
+        // Simulate whitespace-only user input for "color" mode
         String simulatedInput = "   \n";
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
 
-        assertThrows(IllegalArgumentException.class, ColorPalletApp::getUserInput);
+        assertThrows(IllegalArgumentException.class, () -> ColorPalletApp.getUserInput("color"));
+    }
+
+    @Test
+    void testWhitespaceUserInputForSize() {
+        // Simulate whitespace-only user input for "size" mode
+        String simulatedInput = "   \n";
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+        assertThrows(IllegalArgumentException.class, () -> ColorPalletApp.getUserInput("size"));
     }
 
     @Test
@@ -30,39 +40,55 @@ public class ColorPalletAppTest {
 
     @Test
     public void testInvalidBinaryInput() {
-        String simulatedInput = "1111111100000000111111111\n";
+        // Simulate invalid binary input
+        String simulatedInput = "1111111100000000111111111\n"; // 25 bits
         System.setIn(new java.io.ByteArrayInputStream(simulatedInput.getBytes()));
 
-
-        assertThrows(IllegalArgumentException.class, ColorPalletApp::getUserInput);
+        assertThrows(IllegalArgumentException.class, () -> ColorPalletApp.getUserInput("color"));
     }
 
     @Test
-     void testUserInputForBinary() {
-        String simulatedInput = "111111110000000011111111\n";
+    void testUserInputForBinary() {
+        String simulatedInput = "111111110000000011111111\n"; // 24 bits
         System.setIn(new java.io.ByteArrayInputStream(simulatedInput.getBytes()));
 
-        String userInput = ColorPalletApp.getUserInput();
+        String userInput = ColorPalletApp.getUserInput("color");
         assertEquals("#FF00FF", userInput);
     }
 
     @Test
     public void testInvalidHexInput() {
-        // Simulate invalid hex input (too many characters)
-        String simulatedInput = "#ZZZZZZ\n"; // Invalid hex
+        String simulatedInput = "#ZZZZZZ\n";
         System.setIn(new java.io.ByteArrayInputStream(simulatedInput.getBytes()));
 
-        // Ensure an exception is thrown for invalid hex input
-        assertThrows(IllegalArgumentException.class, ColorPalletApp::getUserInput);
+        assertThrows(IllegalArgumentException.class, () -> ColorPalletApp.getUserInput("color"));
     }
 
     @Test
-     void testUserInputForHex() {
+    void testUserInputForHex() {
+        // Simulate valid hex input
         String simulatedInput = "#FF5733\n";
-        System.setIn(new java.io.ByteArrayInputStream(simulatedInput.getBytes()));
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
 
-        String userInput = ColorPalletApp.getUserInput();
+        String userInput = ColorPalletApp.getUserInput("color");
         assertEquals("#FF5733", userInput);
+    }
+
+    @Test
+    public void testSizeInputValid() {
+        String simulatedInput = "8\n";
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+        String sizeInput = ColorPalletApp.getUserInput("size");
+        assertEquals("8", sizeInput);
+    }
+
+    @Test
+    public void testSizeInputInvalid() {
+        String simulatedInput = "5\n";
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+        assertThrows(IllegalArgumentException.class, () -> ColorPalletApp.getUserInput("size"));
     }
 
     @Test
@@ -88,8 +114,6 @@ public class ColorPalletAppTest {
 
         String actualOutput = outputStream.toString().trim().replace("\r\n", "\n").strip();
         String expectedNormalized = expectedOutput.trim().replace("\r\n", "\n").strip();
-
         assertEquals(expectedNormalized, actualOutput);
     }
-
 }
