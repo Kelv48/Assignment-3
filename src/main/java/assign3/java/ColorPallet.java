@@ -25,15 +25,24 @@ public class ColorPallet {
 
         for (int i = 0; i < currentIndex; i++) {
             if (colorPallet[i] == rgbColour) {
-                throw new IllegalArgumentException("Duplicate color: Color already exists in the palette.");
+                throw new IllegalArgumentException("Duplicate colour: Colour already exists in the palette.");
             }
         }
 
         if (currentIndex >= colorPallet.length) {
-            throw new IllegalArgumentException("Color array is full");
+            throw new IllegalArgumentException("Colour array is full");
         }
         colorPallet[currentIndex] = rgbColour;
         currentIndex++;
+    }
+
+    public int getColour(int rgb) {
+        for (int i = 0; i < currentIndex; i++) {
+            if (colorPallet[i] == rgb) {
+                return colorPallet[i];
+            }
+        }
+        throw new IllegalArgumentException("Colour does not exist in the colour pallet");
     }
 
     public int getSize() {

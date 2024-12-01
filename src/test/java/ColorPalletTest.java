@@ -66,4 +66,27 @@ public class ColorPalletTest {
         assertThrows(IllegalArgumentException.class, () -> palette.addColour(0xFF5733));
         assertArrayEquals(new int[] {0xFF5733, -1, -1, -1}, palette.getArray());
     }
+
+    @Test
+    void getColour() {
+        ColorPallet pallet = new ColorPallet(4);
+
+        pallet.addColour(0xFF0000);
+        pallet.addColour(0x00FF00);
+        pallet.addColour(0x0000FF);
+
+        // Testing for valid RGB values
+        assertAll("Colour does exist in table",
+                () -> assertEquals(0xFF0000, pallet.getColour(0xFF0000)),
+                () -> assertEquals(0x00FF00, pallet.getColour(0x00FF00)),
+                () -> assertEquals(0x0000FF, pallet.getColour(0x0000FF))
+        );
+
+        // Testing for invalid RGB value; value that does not exist in the table
+        assertAll("Colour does not exist in table",
+                () -> assertThrows(IllegalArgumentException.class, () -> pallet.getColour(0x123456)),
+                () -> assertThrows(IllegalArgumentException.class, () -> pallet.getColour(0xAAAAAA))
+        );
+
+    }
 }
