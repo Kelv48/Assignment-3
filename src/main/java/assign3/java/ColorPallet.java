@@ -22,6 +22,13 @@ public class ColorPallet {
         if ((rgbColour & 0xFFFFFF) != rgbColour) {
             throw new IllegalArgumentException("Invalid RGB colour: must be a 24-bit value.");
         }
+
+        for (int i = 0; i < currentIndex; i++) {
+            if (colorPallet[i] == rgbColour) {
+                throw new IllegalArgumentException("Duplicate color: Color already exists in the palette.");
+            }
+        }
+
         if (currentIndex >= colorPallet.length) {
             throw new IllegalArgumentException("Color array is full");
         }
@@ -35,5 +42,9 @@ public class ColorPallet {
 
     public int[] getColors() {
         return java.util.Arrays.copyOf(colorPallet, currentIndex);
+    }
+
+    public int[] getArray() {
+        return java.util.Arrays.copyOf(colorPallet, colorPallet.length);
     }
 }

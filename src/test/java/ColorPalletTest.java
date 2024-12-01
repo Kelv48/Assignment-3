@@ -22,15 +22,15 @@ public class ColorPalletTest {
     }
 
     @Test
-    void testAddValidColour() {
-        ColorPallet pallet = new ColorPallet(4);
-        pallet.addColour(0x123456);
-        pallet.addColour(0xFFFFFF);
-        assertEquals(2, pallet.getColors().length);
+    public void testAddValidColor() {
+        ColorPallet palette = new ColorPallet(4);
 
-        int[] colours = pallet.getColors();
-        assertEquals(0x123456, colours[0]);
-        assertEquals(0xFFFFFF, colours[1]);
+        // Add valid colors
+        palette.addColour(0xFF5733);
+        palette.addColour(0x000000);
+
+        // Validate the palette contents
+        assertArrayEquals(new int[] {0xFF5733, 0x000000, -1, -1}, palette.getArray());
     }
 
     @Test
@@ -43,11 +43,23 @@ public class ColorPalletTest {
             pallet.addColour(0x0000FF);
         });
     }
+    // Valid hex / invalid hex
+
 
     @Test
     void testAddInvalidColour() {
         ColorPallet pallet = new ColorPallet(4);
         assertThrows(IllegalArgumentException.class, () -> pallet.addColour(0x1000000));
         assertThrows(IllegalArgumentException.class, () -> pallet.addColour(-1));
+    }
+
+    @Test
+    public void testRejectDuplicateColor() {
+        ColorPallet palette = new ColorPallet(4);
+
+
+        palette.addColour(0xFF5733);
+        assertThrows(IllegalArgumentException.class, () -> palette.addColour(0xFF5733));
+        assertArrayEquals(new int[] {0xFF5733, -1, -1, -1}, palette.getArray());
     }
 }
