@@ -19,4 +19,12 @@ public class ColorPalletApp {
     public static boolean isValidColor(String input) {
         return input.matches("#[0-9A-Fa-f]{6}");
     }
+
+    public static String binaryToHex(String binary) {
+        if (binary.length() != 24) {
+            throw new IllegalArgumentException("Binary input must be exactly 24 bits.");
+        }
+        int decimal = Integer.parseInt(binary, 2);
+        return String.format("#%06X", decimal);
+    }
 }

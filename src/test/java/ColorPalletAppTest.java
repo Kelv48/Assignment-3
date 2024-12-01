@@ -35,4 +35,12 @@ public class ColorPalletAppTest {
 
         assertThrows(IllegalArgumentException.class, ColorPalletApp::getUserInput);
     }
+
+    @Test
+    public void testBinaryToHex() {
+        String binaryInput = "111111110000000011111111";
+        String hexOutput = ColorPalletApp.binaryToHex(binaryInput);
+
+        assertEquals("#FF00FF", hexOutput);
+    }
 }
