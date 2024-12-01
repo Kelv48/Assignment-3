@@ -44,6 +44,16 @@ public class ColorPalletAppTest {
     }
 
     @Test
+    public void testInvalidHexInput() {
+        // Simulate invalid hex input (too many characters)
+        String simulatedInput = "#ZZZZZZ\n"; // Invalid hex
+        System.setIn(new java.io.ByteArrayInputStream(simulatedInput.getBytes()));
+
+        // Ensure an exception is thrown for invalid hex input
+        assertThrows(IllegalArgumentException.class, ColorPalletApp::getUserInput);
+    }
+
+    @Test
      void testUserInputForHex() {
         String simulatedInput = "#FF5733\n";
         System.setIn(new java.io.ByteArrayInputStream(simulatedInput.getBytes()));
