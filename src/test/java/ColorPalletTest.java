@@ -22,7 +22,7 @@ public class ColorPalletTest {
     }
 
     @Test
-    public void testAddValidColor() {
+     void testAddValidColor() {
         ColorPallet palette = new ColorPallet(4);
 
         // Add valid colors
@@ -45,7 +45,7 @@ public class ColorPalletTest {
     }
 
     @Test
-    public void testEmptyPalette() {
+     void testEmptyPalette() {
         ColorPallet palette = new ColorPallet(4);
         assertArrayEquals(new int[] {-1, -1, -1, -1}, palette.getArray()); // Ensure it's empty
     }
@@ -58,7 +58,7 @@ public class ColorPalletTest {
     }
 
     @Test
-    public void testRejectDuplicateColor() {
+     void testRejectDuplicateColor() {
         ColorPallet palette = new ColorPallet(4);
 
 
@@ -75,14 +75,12 @@ public class ColorPalletTest {
         pallet.addColour(0x00FF00);
         pallet.addColour(0x0000FF);
 
-        // Testing for valid RGB values
         assertAll("Colour does exist in table",
                 () -> assertEquals(0xFF0000, pallet.getColour(0xFF0000)),
                 () -> assertEquals(0x00FF00, pallet.getColour(0x00FF00)),
                 () -> assertEquals(0x0000FF, pallet.getColour(0x0000FF))
         );
 
-        // Testing for invalid RGB value; value that does not exist in the table
         assertAll("Colour does not exist in table",
                 () -> assertThrows(IllegalArgumentException.class, () -> pallet.getColour(0x123456)),
                 () -> assertThrows(IllegalArgumentException.class, () -> pallet.getColour(0xAAAAAA))
